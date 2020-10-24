@@ -35,7 +35,21 @@ $ IMG=<some-registry>/<project-name>:<tag> make deploy
 ## CR Installation
 Install the Passgen custom resource using the config sample or generating 
 a new CR.
+
 The following example shows the usage of the config sample:
+```
+apiVersion: passgen.example.com/v1
+kind: Passgen
+metadata:
+  name: passgen-sample
+spec:
+  size: 1
+  imageName: quay.io/gbsalinetti/passgen
+  imageTag: latest
+  hostname: passgen.apps.ocp4.example.com
+```
+
+Install it with the kubectl CLI:
 ```
 $ kubectl apply -f config/samples/passgen_v1_passgen.yaml
 ```

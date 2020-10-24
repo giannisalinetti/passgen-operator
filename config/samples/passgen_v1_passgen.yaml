@@ -6,4 +6,4 @@ spec:
   size: 1
   imageName: quay.io/gbsalinetti/passgen
   imageTag: latest
-  hostname: passgen.apps.ocp4.rhocplab.com
+  hostname: passgen.apps.ocp4.example.com
