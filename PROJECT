@@ -1,0 +1,8 @@
+domain: example.com
+layout: ansible.sdk.operatorframework.io/v1
+projectName: passgen-operator
+resources:
+- group: passgen
+  kind: Passgen
+  version: v1
+version: 3-alpha

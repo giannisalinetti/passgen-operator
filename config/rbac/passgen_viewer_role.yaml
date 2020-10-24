@@ -1,0 +1,20 @@
+# permissions for end users to view passgens.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: passgen-viewer-role
+rules:
+- apiGroups:
+  - passgen.example.com
+  resources:
+  - passgens
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - passgen.example.com
+  resources:
+  - passgens/status
+  verbs:
+  - get

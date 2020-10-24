@@ -1,0 +1,27 @@
+---
+# tasks file for Passgen
+- name: Ensure Application secret is created
+  community.kubernetes.k8s:
+    state: present
+    template: "templates/secret.yaml.j2"
+    namespace: "{{ ansible_operator_meta.namespace }}"
+
+- name: Ensure Application deployment is created
+  community.kubernetes.k8s:
+    state: present
+    template: "templates/deployment.yaml.j2"
+    namespace: "{{ ansible_operator_meta.namespace }}"
+    wait: True
+    wait_timeout: 120
+
+- name: Ensure Application service is created
+  community.kubernetes.k8s:
+    state: present
+    template: "templates/service.yaml.j2"
+    namespace: "{{ ansible_operator_meta.namespace }}"
+
+- name: Ensure Application route is created
+  community.kubernetes.k8s:
+    state: present
+    template: "templates/route.yaml.j2"
+    namespace: "{{ ansible_operator_meta.namespace }}"

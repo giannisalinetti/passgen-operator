@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: passgen
+spec:
+  replicas: {{ size }}
+  selector:
+    matchLabels:
+      app: passgen
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: passgen
+    spec:
+      containers:
+      - name: passgen
+        image: {{ image_name }}:{{ image_tag }}
+        imagePullPolicy: Always
+        command: 
+        - passgen
+        args:
+        - --port 
+        - "8443"
+        - --crt
+        - /etc/passgen/certs/tls.crt
+        - --key
+        - /etc/passgen/certs/tls.key
+        ports:
+        - containerPort: 8443
+          protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: "/health"
+            port: 8443
+            scheme: HTTPS
+        readinessProbe:
+          httpGet:
+            path: "/health"
+            port: 8443
+            scheme: HTTPS
+        volumeMounts:
+          - mountPath: /etc/passgen/certs
+            name: passgen-certs
+      restartPolicy: Always
+      volumes:
+        - name: passgen-certs
+          secret:
+            defaultMode: 420
+            secretName: passgen-tls-cert
+

@@ -1,0 +1,24 @@
+# permissions for end users to edit passgens.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: passgen-editor-role
+rules:
+- apiGroups:
+  - passgen.example.com
+  resources:
+  - passgens
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - passgen.example.com
+  resources:
+  - passgens/status
+  verbs:
+  - get

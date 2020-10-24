@@ -1,0 +1,6 @@
+---
+# defaults file for Passgen
+size: 1
+image_name: quay.io/gbsalinetti/passgen
+image_tag: latest
+hostname: ""

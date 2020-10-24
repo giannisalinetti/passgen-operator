@@ -1,0 +1,9 @@
+apiVersion: passgen.example.com/v1
+kind: Passgen
+metadata:
+  name: passgen-sample
+spec:
+  size: 1
+  imageName: quay.io/gbsalinetti/passgen
+  imageTag: latest
+  hostname: passgen.apps.ocp4.rhocplab.com
