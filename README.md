@@ -15,7 +15,8 @@ The following parameters can be customized:
 - **imageName**: name of the passgen image. Default is *quay.io/gbsalinetti/passgen*
 - **imageTag**: the passgen image tag. Default is *latest*
 - **hostname**: custom hostname for the OpenShift route
-
+- **tlsCert**: Custom TLS certificate
+- **tlsKey**: Custom TLS private key
 ## Operator Installation
 First install the CRD:
 ```
@@ -47,11 +48,28 @@ spec:
   imageName: quay.io/gbsalinetti/passgen
   imageTag: latest
   hostname: passgen.apps.ocp4.example.com
+  tlsCert: |
+    -----BEGIN CERTIFICATE-----
+    ...
+    -----END CERTIFICATE-----
+  tlsKey: |
+    -----BEGIN PRIVATE KEY-----
+    ...
+    -----END PRIVATE KEY-----
 ```
 
 Install it with the kubectl CLI:
 ```
 $ kubectl apply -f config/samples/passgen_v1_passgen.yaml
+```
+
+## Testing the Passgen application
+Passgen generates passwords with different options with outputs as simple
+strings or json.
+The following example produces a JSON object of 100 passwords of 32 characters,
+with random numbers, chars, special chars, uppercase and lowercase:
+```
+$ curl -s -k 'https://passgen.apps.ocp4.example.com/passwd?json=true&iterations=100' | jq -M
 ```
 
 ## CR Removal
